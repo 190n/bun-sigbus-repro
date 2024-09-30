@@ -24,8 +24,17 @@ jobs:
         with:
             bun-version-file: ".bun-version"
 
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
+      - name: cause a segfault
+        run: |
+          ulimit -c unlimited
+          clang-18 -w -O0 -g3 -o crash crash.c
+          sudo ./crash
+          sudo bun install --frozen-lockfile
 
-      - name: Validate
-        run: bun nx run-many -t lint test -p components css
+      - uses: actions/upload-artifact@master
+        with:
+          name: crashes
+          path: /var/lib/systemd/coredump
+
+      # - name: Validate
+      #   run: bun nx run-many -t lint test -p components css
