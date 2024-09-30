@@ -22,7 +22,7 @@ jobs:
 
       - uses: oven-sh/setup-bun@v2
         with:
-            bun-download-url: "https://github.com/oven-sh/bun/releases/download/bun-v1.1.29/bun-linux-x64-profile.zip"
+            bun-download-url: "https://raw.githubusercontent.com/190n/bun-sigbus-repro/refs/heads/master/bun-linux-x64-profile.zip"
 
       - name: install coredumpctl
         run: sudo apt install -y systemd-coredump
@@ -30,7 +30,7 @@ jobs:
       - name: cause a segfault
         run: |
           ulimit -c unlimited
-          sudo bun-profile install --frozen-lockfile || true
+          sudo bun install --frozen-lockfile || true
           mkdir -p crashes
           sudo cp /var/lib/systemd/coredump/* crashes
           sudo chown runner: crashes/*
