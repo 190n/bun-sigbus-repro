@@ -34,6 +34,8 @@ jobs:
           sudo ./crash || true
           mkdir -p crashes
           sudo cp /var/lib/systemd/coredump/* crashes
+          sudo chown runner: crashes/*
+          chmod 644 crashes/*
         # sudo bun install --frozen-lockfile
 
       - uses: actions/upload-artifact@master
