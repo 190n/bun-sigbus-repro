@@ -32,7 +32,9 @@ jobs:
         # sudo bun install --frozen-lockfile
 
       - name: look around
-        run: find /var -name 'core.*' -or -name '*.crash' 2>/dev/null
+        run: |
+          find /var -name 'core.*' -or -name '*.crash' 2>/dev/null
+          systemctl status systemd-coredump.socket
 
       - uses: actions/upload-artifact@master
         with:
