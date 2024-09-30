@@ -30,7 +30,7 @@ jobs:
       - name: cause a segfault
         run: |
           ulimit -c unlimited
-          sudo bun install --frozen-lockfile || true
+          sudo /home/runner/.bun/bin/bun install --frozen-lockfile || true
           mkdir -p crashes
           sudo cp /var/lib/systemd/coredump/* crashes
           sudo chown runner: crashes/*
