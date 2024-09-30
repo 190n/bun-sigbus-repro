@@ -24,6 +24,9 @@ jobs:
         with:
             bun-version-file: ".bun-version"
 
+      - name: install coredumpctl
+        run: sudo apt install -y systemd-coredump
+
       - name: cause a segfault
         run: |
           ulimit -c unlimited
