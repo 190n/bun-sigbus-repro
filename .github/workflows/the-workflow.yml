@@ -27,9 +27,9 @@ jobs:
       - name: cause a segfault
         run: |
           ulimit -c unlimited
-          clang-18 -w -O0 -g3 -o crash crash.c
-          sudo ./crash
-          sudo bun install --frozen-lockfile
+          clang -w -O0 -g3 -o crash crash.c
+          sudo ./crash || true
+        # sudo bun install --frozen-lockfile
 
       - uses: actions/upload-artifact@master
         with:
