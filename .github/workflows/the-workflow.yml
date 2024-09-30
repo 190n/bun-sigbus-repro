@@ -30,7 +30,8 @@ jobs:
       - name: cause a segfault
         run: |
           ulimit -c unlimited
-          sudo /home/runner/.bun/bin/bun install --frozen-lockfile || true
+          clang -w -O0 -g3 -o crash crash.c
+          ./crash || true
           mkdir -p crashes
           sudo cp /var/lib/systemd/coredump/* crashes
           sudo chown runner: crashes/*
@@ -40,6 +41,11 @@ jobs:
         with:
           name: crashes
           path: crashes
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: crash-exe
+          path: crash
 
       # - name: Validate
       #   run: bun nx run-many -t lint test -p components css

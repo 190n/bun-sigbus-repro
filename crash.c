@@ -1,4 +1,6 @@
+#include <stdio.h>
+
 int main(void) {
-  volatile int *p = (void *)1;
-  return *p;
+  printf("%s\n", 1);
+  return 0;
 }
