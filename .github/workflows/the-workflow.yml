@@ -32,12 +32,14 @@ jobs:
           ulimit -c unlimited
           clang -w -O0 -g3 -o crash crash.c
           sudo ./crash || true
+          mkdir -p crashes
+          sudo cp /var/lib/systemd/coredump/* crashes
         # sudo bun install --frozen-lockfile
 
       - uses: actions/upload-artifact@master
         with:
           name: crashes
-          path: /var/lib/systemd/coredump
+          path: crashes
 
       # - name: Validate
       #   run: bun nx run-many -t lint test -p components css
