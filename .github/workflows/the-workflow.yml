@@ -20,6 +20,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: check node version
+        run: node --version
+
       - uses: oven-sh/setup-bun@v2
         with:
             bun-version: latest
@@ -31,7 +38,7 @@ jobs:
       - name: cause a segfault
         run: |
           ulimit -c unlimited
-          sudo /home/runner/.bun/bin/bun install --frozen-lockfile --concurrent-scripts 1
+          sudo /home/runner/.bun/bin/bun install --frozen-lockfile
           mkdir -p crashes
           sudo cp /var/lib/systemd/coredump/* crashes
           sudo chown runner: crashes/*
